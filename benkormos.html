@@ -11,7 +11,7 @@
     <!-- FontAwesome für moderne Symbole -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Brandneues Glassmorphism-CSS Design -->
+    <!-- Modernes Glassmorphism-CSS Design mit Typewriter-Effekt -->
     <style>
         /* Sanfter, dunkler Cyberpunk-Farbverlauf im Hintergrund */
         body {
@@ -78,14 +78,43 @@
             box-shadow: 0 0 35px rgba(0, 255, 136, 0.5);
         }
 
-        h1 {
-            font-size: 2rem;
+        /* Typewriter-Container & Styling */
+        .typewriter-container {
+            display: flex;
+            justify-content: center;
             margin: 18px 0 6px 0;
-            letter-spacing: 0.5px;
+        }
+
+        .typewriter-text {
+            font-size: 2rem;
             font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #00ff88; /* Der blinkende Cursor */
+            width: 0;
+            
+            /* Text-Farbverlauf */
             background: linear-gradient(135deg, #ffffff, #a5a1b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            
+            /* Animationen: Tippen und Cursor-Blinken */
+            animation: 
+                typing 2s steps(9, end) forwards,
+                blink-caret 0.75s step-end infinite alternate;
+        }
+
+        /* Schreibmaschinen-Effekt (9 Schritte für "BenKormos") */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 9.3ch; } /* Genau die Breite deines Namens */
+        }
+
+        /* Cursor-Blinken */
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00ff88; }
         }
 
         .tagline {
@@ -246,19 +275,21 @@
 
     <div class="container">
         
-        <!-- Zurück-Button auf index.html verwiesen -->
         <a href="../index.html" class="back-link">
             <i class="fas fa-arrow-left"></i> Zurück zum Hub
         </a>
 
         <header class="profile">
-            <!-- Pfad aus deinem geänderten Entwurf exakt beibehalten -->
             <img src="pictures/benkormos.profilbild.jpg" alt="Profile Picture" class="avatar">
-            <h1>BenKormos</h1>
+            
+            <!-- Hier ist der neue Typewriter Name verpackt -->
+            <div class="typewriter-container">
+                <span class="typewriter-text">BenKormos</span>
+            </div>
+            
             <p class="tagline">Owner & Developer</p>
         </header>
 
-        <!-- Deine neue Sektion: Organisation -->
         <section class="section-box">
             <h3><i class="fas fa-sitemap"></i> My Organisation</h3>
             <div class="project-grid">
@@ -268,17 +299,15 @@
                         <i class="fab fa-github"></i> View Organisation
                     </a>
                 </div>
-            </div> <!-- HTML-Korrektur: Das vergessene </div> aus deinem Entwurf wurde hier geschlossen -->
+            </div>
         </section>
 
-        <!-- Deine Bio Sektion -->
         <section class="section-box">
             <h3>About Me 👋</h3>
             <p>Welcome to my Custom MadePage!</p>
             <p>I love building codes, tinkering with code, and sharing my latest projects and favorite links right here with you.</p>
         </section>
 
-        <!-- Deine Social Links -->
         <section class="section-box">
             <h3>Links 🔗</h3>
             <div class="links-container">
@@ -297,7 +326,6 @@
             </div>
         </section>
 
-        <!-- Deine Projekt Sektion mit Voltix und dem Malware Projekt -->
         <section class="section-box">
             <h3>My Projects 🚀</h3>
             <div class="project-grid">
