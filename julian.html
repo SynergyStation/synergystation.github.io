@@ -392,7 +392,7 @@
         const LIKE_KEY = "julian442-profile-likes-v1";
         const LIKE_HIT_URL = `https://countapi.mileshilliard.com/api/v1/hit/${LIKE_KEY}`;
         const LIKE_GET_URL = `https://countapi.mileshilliard.com/api/v1/get/${LIKE_KEY}`;
-        const LIKE_SET_URL = `https://countapi.mileshilliard.com/api/v1/set/${LIKE_KEY}?value=0`;
+        const likeSetUrl = (value) => `https://countapi.mileshilliard.com/api/v1/set/${LIKE_KEY}?value=${value}`;
         const likeBtn = document.getElementById('like-btn');
         const likeLabel = document.getElementById('like-label');
         const likeCount = document.getElementById('like-count');
@@ -417,15 +417,19 @@
         // --- Reset per URL-Parameter: ?reset=true ---
         // Setzt den globalen Zähler (CountAPI) auf 0 zurück UND löscht den
         // lokalen "schon geliked"-Status in diesem Browser.
+        // --- Beliebigen Wert setzen per URL-Parameter: ?likes=ZAHL ---
+        // Setzt den globalen Zähler (CountAPI) direkt auf die angegebene Zahl.
         const params = new URLSearchParams(window.location.search);
         const shouldReset = params.get('reset') === 'true';
+        const likesParam = params.get('likes');
+        const shouldSetLikes = likesParam !== null && !isNaN(parseInt(likesParam));
 
         function performReset() {
             resetLog.textContent = "Setze Likes zurück...";
             localStorage.removeItem('julian442_liked');
             clearLikedState();
 
-            fetch(LIKE_SET_URL)
+            fetch(likeSetUrl(0))
                 .then(res => res.json())
                 .then(() => {
                     renderCount(0);
@@ -441,8 +445,29 @@
                 });
         }
 
+        function performSetLikes() {
+            const newValue = parseInt(likesParam);
+            resetLog.textContent = `Setze Likes auf ${newValue}...`;
+
+            fetch(likeSetUrl(newValue))
+                .then(res => res.json())
+                .then(() => {
+                    renderCount(newValue);
+                    resetLog.textContent = `Likes wurden auf ${newValue} gesetzt ✅`;
+                    // Parameter aus der URL entfernen, damit ein Reload nicht erneut setzt
+                    params.delete('likes');
+                    const newUrl = window.location.pathname + (params.toString() ? `?${params.toString()}` : '');
+                    window.history.replaceState({}, '', newUrl);
+                })
+                .catch(() => {
+                    resetLog.textContent = "Globaler Zähler evtl. nicht erreichbar.";
+                });
+        }
+
         if (shouldReset) {
             performReset();
+        } else if (shouldSetLikes) {
+            performSetLikes();
         } else {
             const hasLiked = localStorage.getItem('julian442_liked') === 'true';
 
