@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mexo | Hub</title>
     
-    <link rel="icon" type="image/jpeg" href="pictures/mexo.profilbild.jpg">
+    <!-- Optimiertes Favicon für PNG-Bilder mit Transparenz -->
+    <link rel="icon" type="image/png" sizes="32x32" href="pictures/mexo.profilbild.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -447,18 +448,17 @@
         </footer>
     </div>
 
-    <!-- Bereinigtes Musik-Script ohne Autoplay-Error -->
+    <!-- Musik-Script -->
     <script>
         const songs = [
-            { title: 'BLN - Ak Ausserkontrolle', src: 'music/mexo/Tuff.mp3' },
-            { title: 'goosebumps - Travis Scott', src: 'music/mexo/Tuff2.mp3' },
-            { title: 'Pink Fluffy Dancing on Rainbows', src: 'music/mexo/Tuff3.mp3' }
+            { title: 'BLN - Ak Ausserkontrolle', src: 'music/mexo/tuff.mp3' },
+            { title: 'goosebumps - Travis Scott', src: 'music/mexo/tuff2.mp3' },
+            { title: 'Pink Fluffy Dancing on Rainbows', src: 'music/mexo/tuff3.mp3' }
         ];
 
         let currentSongIndex = 0;
         let isPlaying = false;
 
-        // Audio-Objekt global erzeugen, startet ohne Autoplay-Sperre
         const audio = new Audio();
         audio.muted = false; 
         audio.volume = 0.5;
@@ -472,7 +472,6 @@
         const volumeSlider = document.getElementById('volume-slider');
         const volIcon = document.getElementById('volume-icon');
 
-        // Initiale Slider-Werte setzen
         volumeSlider.value = 0.5;
         volIcon.className = 'fas fa-volume-high volume-icon';
 
@@ -559,7 +558,6 @@
             }
         });
 
-        // Bereitet den Song vor, startet aber erst auf Klick
         loadSong(songs[currentSongIndex]);
     </script>
 
