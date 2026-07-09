@@ -10,454 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --bg-main: #06060e;
-            --panel-bg: rgba(13, 13, 25, 0.45);
-            --panel-border: rgba(255, 255, 255, 0.05);
-            --accent-cyan: #00f0ff;
-            --accent-purple: #9d4edd;
-            --accent-emerald: #00ffaa;
-            --text-pure: #ffffff;
-            --text-main: #cbd5e1;
-            --text-muted: #64748b;
-            --font-display: 'Space Grotesk', sans-serif;
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --discord-color: #5865F2;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            /* Sanftere, modernere Tiefen-Glow-Effekte statt hartem Grid */
-            background-image: 
-                radial-gradient(circle at 10% 15%, rgba(157, 78, 221, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 85%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(6, 6, 14, 1) 0%, rgba(3, 3, 8, 1) 100%);
-            background-attachment: fixed;
-            color: var(--text-main);
-            font-family: var(--font-sans);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 120px 24px 60px 24px;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 840px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            animation: cubic-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes cubic-reveal {
-            from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        /* --- MODERN GLASS NAVBAR --- */
-        .navbar {
-            position: fixed;
-            top: 16px; 
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 48px);
-            max-width: 1200px;
-            height: 64px;
-            background: rgba(10, 10, 20, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--panel-border);
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 24px;
-            z-index: 1000;
-        }
-
-        .nav-logo {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: -0.5px;
-            color: var(--text-pure);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .nav-logo span {
-            color: var(--accent-cyan);
-            position: relative;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--text-pure);
-            border: 1px solid var(--panel-border);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nav-btn.dev-btn:hover {
-            border-color: rgba(0, 240, 255, 0.3);
-            background: rgba(0, 240, 255, 0.04);
-            color: var(--accent-cyan);
-        }
-
-        .nav-btn.discord-btn {
-            background: var(--text-pure);
-            color: var(--bg-main);
-            border: none;
-        }
-
-        .nav-btn.discord-btn:hover {
-            background: var(--accent-cyan);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 20px rgba(0, 240, 255, 0.2);
-        }
-
-        .nav-avatar {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        /* --- CLEAN HEADER LOGO SEKTION --- */
-        .hub-header {
-            text-align: center;
-            padding: 20px 0 10px 0;
-        }
-
-        .avatar-mainframe {
-            display: inline-block;
-            margin-bottom: 20px;
-            width: 90px;
-            height: 90px;
-            position: relative;
-        }
-
-        .avatar-mainframe::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 24px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            z-index: -1;
-            opacity: 0.4;
-            filter: blur(8px);
-        }
-
-        .hub-avatar {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .hub-title {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            color: var(--text-pure);
-            margin-bottom: 8px;
-        }
-
-        .hub-tagline {
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- SMOOTH GLASSMORPHISM PANELS --- */
-        .panel {
-            background: var(--panel-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--panel-border);
-            border-radius: 20px;
-            padding: 28px;
-            transition: border-color 0.4s ease, transform 0.4s ease;
-        }
-
-        .panel:hover {
-            border-color: rgba(255, 255, 255, 0.09);
-        }
-
-        .panel-title {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-pure);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .panel-title span:first-child {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            opacity: 0.9;
-        }
-
-        .panel-title i { 
-            color: var(--accent-cyan); 
-        }
-
-        .panel-title .badge {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.03);
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid var(--panel-border);
-        }
-
-        /* --- LIVE MONITOR STREAM NODE --- */
-        .cron-terminal {
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(0, 255, 170, 0.15);
-            border-radius: 12px;
-            padding: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: var(--text-main);
-        }
-
-        .live-tag {
-            color: var(--accent-emerald);
-            background: rgba(0, 255, 170, 0.06);
-            border: 1px solid rgba(0, 255, 170, 0.2);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-
-        /* --- IDENTITY NODES GRID --- */
-        .holo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .profile-node {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid var(--panel-border);
-            border-radius: 14px;
-            padding: 24px 16px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .profile-node i.avatar-fallback {
-            font-size: 1.75rem;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            transition: transform 0.4s ease, color 0.4s ease;
-        }
-
-        .profile-node h4 {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text-pure);
-            margin-bottom: 4px;
-        }
-
-        .profile-node span {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        /* Node Hover Effects */
-        .profile-node:hover {
-            background: rgba(255, 255, 255, 0.03);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-node:nth-child(1):hover { border-color: rgba(0, 240, 255, 0.4); }
-        .profile-node:nth-child(1):hover i.avatar-fallback { color: var(--accent-cyan); transform: scale(1.1); }
-
-        .profile-node:nth-child(2):hover { border-color: rgba(255, 0, 100, 0.4); }
-        .profile-node:nth-child(2):hover i.avatar-fallback { color: #ff0064; transform: scale(1.1); }
-        
-        .profile-node:nth-child(3):hover { border-color: rgba(0, 255, 170, 0.4); }
-        .profile-node:nth-child(3):hover i.avatar-fallback { color: var(--accent-emerald); transform: scale(1.1); }
-
-        /* --- OPEN SOURCE GITHUB PANEL --- */
-        .oss-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid var(--panel-border);
-            border-radius: 14px;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text-main);
-            transition: all 0.3s ease;
-        }
-
-        .oss-container:hover {
-            background: rgba(157, 78, 221, 0.03);
-            border-color: rgba(157, 78, 221, 0.3);
-        }
-
-        .oss-meta {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .oss-meta i.fa-github {
-            font-size: 2.2rem;
-            color: var(--text-pure);
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
-        }
-
-        .oss-container:hover i.fa-github {
-            opacity: 0.9;
-            color: var(--accent-purple);
-        }
-
-        .oss-details h4 {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-pure);
-            margin-bottom: 2px;
-        }
-
-        .oss-details p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .oss-stats {
-            display: flex;
-            gap: 12px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* --- ONBOARDING LINK PANEL --- */
-        .join-interface {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .join-desc {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: var(--text-main);
-            opacity: 0.8;
-        }
-
-        .action-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-width: 200px;
-            padding: 14px 24px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-pure);
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .action-link:hover {
-            background: var(--text-pure);
-            color: var(--bg-main);
-            transform: scale(1.02);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
-        }
-
-        /* --- FOOTER --- */
-        .hub-footer {
-            text-align: center;
-            margin-top: 16px;
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            opacity: 0.5;
-            letter-spacing: 1px;
-        }
-
-        /* --- DESIGN RESPONSIVENESS --- */
-        @media (max-width: 768px) {
-            .holo-grid { grid-template-columns: 1fr; gap: 12px; }
-            .oss-container { flex-direction: column; gap: 16px; text-align: center; align-items: center; }
-            .oss-meta { flex-direction: column; gap: 8px; }
-            .join-interface { flex-direction: column; text-align: center; gap: 20px; }
-            .action-link { width: 100%; }
-        }
-
-        @media (max-width: 540px) {
-            .navbar { width: calc(100% - 24px); top: 12px; padding: 0 16px; }
-            body { padding-top: 100px; padding-left: 16px; padding-right: 16px; }
-            .nav-btn span { display: none; }
-            .hub-title { font-size: 2rem; }
-            .panel { padding: 20px; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/homepage/style.css">
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="#" class="nav-logo">SYNERGY//<span>STATION</span></a>
+        <a href="#" class="nav-logo">SYNERGY  //<span>station</span></a>
         <div class="nav-links">
             <a href="developer.html" class="nav-btn dev-btn">
                 <img src="logo.png" alt="Ben" class="nav-avatar">
@@ -476,7 +34,7 @@
                 <img src="logo.png" alt="Hub Mainframe" class="hub-avatar">
             </div>
             <h1 class="hub-title">SynergyStation Hub</h1>
-            <p class="hub-tagline">Central Access Node // Select Profile Grid</p>
+            <p class="hub-tagline">Made by SYNERGYstation</p>
         </header>
 
         <section class="panel" id="cron-box" style="display: none;">
@@ -492,29 +50,67 @@
 
         <section class="panel">
             <div class="panel-title">
-                <span><i class="fas fa-server"></i> FEDERATED_IDENTITY_NODES</span>
-                <span class="badge">[ 03 / ONLINE ]</span>
+                <span><i class="fas fa-server"></i> Profiles</span>
+                <span class="badge">Profiles</span>
             </div>
             
             <div class="holo-grid">
                 
-                <a href="benkormos" class="profile-node">
-                    <i class="fas fa-user-astronaut avatar-fallback"></i>
+                <div class="profile-node">
+                    <div class="status-config-box">
+                        <div class="status-indicator online"></div>
+                        <select class="status-selector" onchange="updateNodeStatus(this)">
+                            <option value="online">Online</option>
+                            <option value="offline">Maintenance</option>
+                        </select>
+                    </div>
+                    <a href="benkormos" class="node-overlay-link"></a>
+                    <i class="fas fa-user-shield avatar-fallback"></i>
                     <h4>BenKormos</h4>
                     <span>Owner/Developer</span>
-                </a>
+                </div>
                 
-                <a href="julian" class="profile-node">
+                <div class="profile-node">
+                    <div class="status-config-box">
+                        <div class="status-indicator online"></div>
+                        <select class="status-selector" onchange="updateNodeStatus(this)">
+                            <option value="online">Online</option>
+                            <option value="offline">Maintenance</option>
+                        </select>
+                    </div>
+                    <a href="julian" class="node-overlay-link"></a>
                     <i class="fas fa-user-shield avatar-fallback"></i>
                     <h4>Julian442</h4>
                     <span>Dev</span>
-                </a>
+                </div>
 
-                <a href="mexo" class="profile-node">
-                    <i class="fas fa-user-ninja avatar-fallback"></i>
+                <div class="profile-node">
+                    <div class="status-config-box">
+                        <div class="status-indicator online"></div>
+                        <select class="status-selector" onchange="updateNodeStatus(this)">
+                            <option value="online">Online</option>
+                            <option value="offline">Maintenance</option>
+                        </select>
+                    </div>
+                    <a href="mexo" class="node-overlay-link"></a>
+                    <i class="fas fa-user-shield avatar-fallback"></i>
                     <h4>Mexo</h4>
                     <span>Dev</span>
-                </a>
+                </div>
+
+                <div class="profile-node">
+                    <div class="status-config-box">
+                        <div class="status-indicator offline"></div>
+                        <select class="status-selector" onchange="updateNodeStatus(this)">
+                            <option value="online">Online</option>
+                            <option value="offline" selected>Maintenance</option>
+                        </select>
+                    </div>
+                    <a href="niklas" class="node-overlay-link"></a>
+                    <i class="fas fa-user-ninja avatar-fallback"></i>
+                    <h4>Niklas150413</h4>
+                    <span>Guest</span>
+                </div>
                 
             </div>
         </section>
@@ -543,18 +139,36 @@
                 <span><i class="fas fa-network-wired"></i> BROADCAST_NEW_PR0FILE</span>
             </div>
             <div class="join-interface">
-                <p class="join-desc">
-                    Reuest ur Profile in the Discord</p>
+                <p class="join-desc">Request ur Profile in the Discord</p>
                 <a href="https://dc.gg/ben" target="_blank" class="action-link">Request Profile <i class="fas fa-arrow-right"></i></a>
             </div>
         </section>
 
         <footer class="hub-footer">
-            // TERMINAL HUB OPERATIONAL // MATRIX v3.0 // YEAR_2026 //
+            // BenkormosProductions // ver3.12 //
         </footer>
     </div>
 
     <script>
+        // Funktion zur dynamischen Aktualisierung der Status-Punkte
+        function updateNodeStatus(selectElement) {
+            const configBox = selectElement.parentElement;
+            const indicator = configBox.querySelector('.status-indicator');
+            const selectedStatus = selectElement.value;
+
+            // Bestehende Klassen entfernen
+            indicator.className = 'status-indicator';
+            
+            // Neue Status-Klasse hinzufügen
+            if (selectedStatus === 'online') {
+                indicator.classList.add('online');
+            } else if (selectedStatus === 'idle') {
+                indicator.classList.add('idle');
+            } else if (selectedStatus === 'offline') {
+                indicator.classList.add('offline');
+            }
+        }
+
         async function fetchLatestUpdates() {
             const owner = 'Benbroc'; 
             const repo = 'kaboom.github.io'; 
