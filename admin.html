@@ -368,6 +368,22 @@
       sendLabel.textContent = "Senden";
     }
   });
+
+  // --- Einfache Abschreckung gegen DevTools/Quelltext-Ansicht ---
+  // Hinweis: Das ist KEIN echter Schutz, nur eine kleine Hürde. Über das
+  // Browser-Hauptmenü lassen sich die Entwicklertools weiterhin öffnen.
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.toUpperCase();
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (key === 'I' || key === 'J' || key === 'C')) ||
+      (e.ctrlKey && key === 'U')
+    ) {
+      e.preventDefault();
+    }
+  });
 </script>
 
 </body>
