@@ -15,7 +15,7 @@
 <body>
 
     <nav class="navbar">
-        <a href="#" class="nav-logo">SYNERGY  //<span>station</span></a>
+        <a href="#" class="nav-logo">SYNERGY //<span>station</span></a>
         <div class="nav-links">
             <a href="developer.html" class="nav-btn dev-btn">
                 <img src="logo.png" alt="Ben" class="nav-avatar">
@@ -55,7 +55,14 @@
             </div>
             
             <div class="holo-grid">
-                
+                <div class="profile-node">
+                    <div class="status-config-box">
+                        <span class="status-indicator online"></span>
+                        <select class="status-selector" onchange="updateNodeStatus(this)">
+                            <option value="online">ONLINE</option>
+                            <option value="idle">IDLE</option>
+                            <option value="offline">OFFLINE</option>
+                        </select>
                     </div>
                     <a href="benkormos" class="node-overlay-link"></a>
                     <i class="fas fa-user-shield avatar-fallback"></i>
@@ -63,6 +70,14 @@
                     <span>Owner/Developer</span>
                 </div>
                 
+                <div class="profile-node">
+                    <div class="status-config-box">
+                        <span class="status-indicator online"></span>
+                        <select class="status-selector" onchange="updateNodeStatus(this)">
+                            <option value="online">ONLINE</option>
+                            <option value="idle">IDLE</option>
+                            <option value="offline">OFFLINE</option>
+                        </select>
                     </div>
                     <a href="julian" class="node-overlay-link"></a>
                     <i class="fas fa-user-shield avatar-fallback"></i>
@@ -70,6 +85,14 @@
                     <span>Dev</span>
                 </div>
 
+                <div class="profile-node">
+                    <div class="status-config-box">
+                        <span class="status-indicator online"></span>
+                        <select class="status-selector" onchange="updateNodeStatus(this)">
+                            <option value="online">ONLINE</option>
+                            <option value="idle">IDLE</option>
+                            <option value="offline">OFFLINE</option>
+                        </select>
                     </div>
                     <a href="mexo" class="node-overlay-link"></a>
                     <i class="fas fa-user-shield avatar-fallback"></i>
@@ -115,16 +138,13 @@
     </div>
 
     <script>
-        // Funktion zur dynamischen Aktualisierung der Status-Punkte
         function updateNodeStatus(selectElement) {
             const configBox = selectElement.parentElement;
             const indicator = configBox.querySelector('.status-indicator');
             const selectedStatus = selectElement.value;
 
-            // Bestehende Klassen entfernen
             indicator.className = 'status-indicator';
             
-            // Neue Status-Klasse hinzufügen
             if (selectedStatus === 'online') {
                 indicator.classList.add('online');
             } else if (selectedStatus === 'idle') {
